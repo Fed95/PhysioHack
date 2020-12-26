@@ -4,7 +4,7 @@
   "description": "backend",
   "main": "index.js",
   "scripts": {
-    "test": "npm run unit"
+    "start": "nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Fed95/PhysioHack/issues"
   },
-  "homepage": "https://github.com/Fed95/PhysioHack#readme"
+  "homepage": "https://github.com/Fed95/PhysioHack#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
 }
