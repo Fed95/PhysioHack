@@ -1,0 +1,20 @@
+###
+POST http://localhost:3000/add-professional
+Content-Type: 'application/json; charset=utf-8'
+
+{
+  "description":"",
+  "phone":"",
+  "lat":"",
+  "lng":"",
+  "userId":null,
+}
+
+###
+GET http://localhost:3000/professionals
+Content-Type: 'application/json; charset=utf-8'
+
+###
+GET http://localhost:3000/professional/1
+Content-Type: 'application/json; charset=utf-8'
+
