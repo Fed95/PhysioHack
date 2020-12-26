@@ -18,5 +18,9 @@
   "homepage": "https://github.com/Fed95/PhysioHack#readme",
   "devDependencies": {
     "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
   }
 }
