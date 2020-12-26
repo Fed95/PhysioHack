@@ -1,5 +1,9 @@
-var express = require('express')
-  , app = express()
+const express = require('express')
+const db = require('./config/db')
+
+const app = express()
+
+db.init()
 
 app.use(require('./controllers'))
 
