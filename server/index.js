@@ -4,7 +4,7 @@ const port = 3000
 const db = require('./config/db')
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger_output.json');
-//necessario require in variabile per autoswagger
+//need in variable for autoswagger
 const router = require('./controllers/index')
 
 app.use(express.json())

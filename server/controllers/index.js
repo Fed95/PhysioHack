@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-//necessario require in variabile per autoswagger
+//need in variable for autoswagger
 const professionals = require('./professionals.js')
 router.use('/professionals',professionals)
 
