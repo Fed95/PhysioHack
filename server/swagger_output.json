@@ -1,0 +1,109 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "REST API",
+    "description": ""
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "tags": [],
+  "schemes": [
+    "http"
+  ],
+  "securityDefinitions": {},
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/professionals/add": {
+      "post": {
+        "tags": [],
+        "description": "Add new professional",
+        "parameters": [
+          {
+            "name": "description",
+            "in": "body",
+            "description": "Professional description",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "phone",
+            "in": "body",
+            "description": "Professional phone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "latitude",
+            "in": "body",
+            "description": "Professional latitude",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "longitude",
+            "in": "body",
+            "description": "Professional longitude",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "userId",
+            "in": "body",
+            "description": "Professional user id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/professionals/": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/professionals/{id}": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id of a professional"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {}
+}
