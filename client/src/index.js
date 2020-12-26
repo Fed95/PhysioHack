@@ -1,12 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import 'antd/dist/antd.css';
+import {Layout, Row, Col} from 'antd';
+
+import './index.css';
+import "./style/profile.css"
+import {SearchBar} from "./components/Search"
+
+const { Header, Footer, Content } = Layout;
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+      <Layout>
+          <Header>
+              <Row>
+                  <Col span={6}>Header</Col>
+                  <Col span={16} className={"center"}>
+                      <SearchBar />
+                  </Col>
+                  <Col span={2} />
+              </Row>
+          </Header>
+          <Content className={"content"}>
+              <Row className={"contentHeader"}>
+
+              </Row>
+              <Row>
+                  <Col span={1} />
+                  <Col span={22}>
+                      <App />
+                  </Col>
+                  <Col span={1} />
+              </Row>
+          </Content>
+          <Footer>Footer</Footer>
+      </Layout>
   </React.StrictMode>,
   document.getElementById('root')
 );

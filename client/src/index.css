@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.padded {
+  padding: 10px;
+}
+
+.ant-layout-header {
+  color: aliceblue;
+  font-size: xxx-large;
+  font-weight: bold;
+}
+
+.ant-layout-content {
+  min-height: calc(100vh - 134px)
+}
+
+.ant-layout-footer {
+  background-color: #4791a7;
+}
+
+.contentHeader {
+  height: 100px;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
