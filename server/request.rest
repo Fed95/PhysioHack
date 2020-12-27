@@ -4,6 +4,20 @@ Content-Type: application/json
 {
   "description":"test",
   "phone":"234",
+  "locations": [
+    {
+      "name": "Clinica Tu Madre",
+      "address": "Via le dita dal naso, 25",
+      "lat": 41.925593,
+      "lng": 12.479402
+    },
+    {
+      "name": "Consultorio Lo Zozzo",
+      "address": "Via i laziali da Roma, 42",
+      "lat": 41.9357261,
+      "lng": 12.4839667
+    }
+  ],
   "latitude":"34243",
   "longitude":"23443",
   "userId":null
@@ -14,9 +28,13 @@ GET http://localhost:3000/professionals/
 Content-Type: application/json
 
 ###
-GET http://localhost:3000/professionals/id/5fe79833e74e876417090525
+GET http://localhost:3000/professionals/id/5fe858ef2923e322e8bcc4b9
 Content-Type: application/json
 
 ###
 GET http://localhost:3000/professionals/distance?latitude=41.9444069&longitude=12.4754972
+Content-Type: application/json
+
+###
+DELETE http://localhost:3000/professionals/id/5fe858ef2923e322e8bcc4b9
 Content-Type: application/json
