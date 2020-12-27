@@ -5,7 +5,7 @@
     "title": "REST API",
     "description": ""
   },
-  "host": "localhost:3000",
+  "host": "localhost:3001",
   "basePath": "/",
   "tags": [],
   "schemes": [
@@ -21,40 +21,60 @@
   "paths": {
     "/professionals/add": {
       "post": {
-        "tags": [],
+        "tags": [
+          "Professionals"
+        ],
         "description": "Add new professional",
         "parameters": [
           {
-            "name": "description",
+            "name": "obj",
             "in": "body",
-            "description": "Professional description",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "location",
-            "in": "body",
-            "description": "Professional locations",
-            "required": false,
-            "type": "array",
-            "items": {
+            "description": "Add new user",
+            "schema": {
               "type": "object",
-              "schema": "Location"
+              "properties": {
+                "description": {
+                  "type": "string",
+                  "example": "description"
+                },
+                "locations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Consultorio Lo Zozzo"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": "Via i laziali da Roma, 42"
+                      },
+                      "lat": {
+                        "type": "number",
+                        "example": 41.9357261
+                      },
+                      "lng": {
+                        "type": "number",
+                        "example": 12.4839667
+                      }
+                    }
+                  }
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "892"
+                },
+                "userId": {
+                  "type": "string",
+                  "example": ""
+                }
+              },
+              "required": [
+                "description",
+                "phone"
+              ]
             }
-          },
-          {
-            "name": "phone",
-            "in": "body",
-            "description": "Professional phone",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "userId",
-            "in": "body",
-            "description": "Professional user id",
-            "required": true,
-            "type": "string"
           }
         ],
         "responses": {
@@ -69,7 +89,9 @@
     },
     "/professionals/": {
       "get": {
-        "tags": [],
+        "tags": [
+          "Professionals"
+        ],
         "description": "",
         "parameters": [],
         "responses": {
@@ -84,27 +106,9 @@
     },
     "/professionals/id/{id}": {
       "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "id of a professional"
-          }
+        "tags": [
+          "Professionals"
         ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "400": {
-            "description": "Bad Request"
-          }
-        }
-      },
-      "delete": {
-        "tags": [],
         "description": "",
         "parameters": [
           {
@@ -126,7 +130,9 @@
     },
     "/professionals/distance": {
       "get": {
-        "tags": [],
+        "tags": [
+          "Professionals"
+        ],
         "description": "",
         "parameters": [
           {
@@ -142,6 +148,105 @@
             "description": "Longitude",
             "required": true,
             "type": "number"
+          },
+          {
+            "name": "latitude\r",
+            "in": "query"
+          },
+          {
+            "name": "longitude\r",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/users/add": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Add new User",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Add new user",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "example": "Mario"
+                },
+                "surname": {
+                  "type": "string",
+                  "example": "bianchi"
+                },
+                "mail": {
+                  "type": "string",
+                  "example": "mariooo@gmail.com"
+                },
+                "password": {
+                  "type": "string",
+                  "example": "iammariobianchi"
+                }
+              },
+              "required": [
+                "name",
+                "surname",
+                "mail",
+                "password"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/users/": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Get all Users",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/users/id/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Get single user by id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id of a user"
           }
         ],
         "responses": {

@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 const tokenConstant = require('./../constants/tokens')
+const validator = require("email-validator");
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -93,7 +94,11 @@ UserSchema.methods.verifyRefreshToken = function (refreshToken) {
 }
 
 UserSchema.pre('save', function (next) {
-    if (!this.isModified('password')) {
+    let user = this
+    if(!validator.validate(user.email)){
+        throw('Wrong mail format')
+    }
+    if (!user.isModified('password')) {
         return next()
     }
 
@@ -102,11 +107,11 @@ UserSchema.pre('save', function (next) {
             return next(err)
         }
 
-        bcrypt.hash(this.password, salt, function (err, hash) {
+        bcrypt.hash(user.password, salt, function (err, hash) {
             if (err) {
                 return next(err)
             }
-            this.password = hash
+            user.password = hash
             next()
         })
     })
