@@ -1,14 +1,25 @@
 import React from "react";
 import {Map} from "../components/Map";
-import {Row, Col, List, Divider} from 'antd';
+import {Row, Col, List, Divider, Card} from 'antd';
 import { LoremIpsum } from "react-lorem-ipsum";
 
 import pp from '../images/theFixer.png'
 
+const { Meta } = Card;
+
 const locations = [
-    'Racing car sprays burning fuel into crowd.',
-    'Japanese princess to wed commoner.',
-    'Australian walks 100km after outback crash.'
+    {
+        name: 'ASC - Physiotherapy',
+        address: 'Via Terraggio, 9, Milano'
+    },
+    {
+        name: 'Artemedica (possibilità di parcheggio interno)',
+        address: 'Via Privata Belgirate, 15, Milano'
+    },
+    {
+        name: 'Centro UNIQUE',
+        address: 'Via Egidio Gorra, 55/C, Piacenza'
+    }
 ];
 
 const pathologies = [
@@ -62,7 +73,7 @@ function Profile() {
                     renderItem={item => (
                         <List.Item>
                             <a>
-                            <div className={"pathology padded"}>{item.title}</div>
+                            <div className={"padded bordered"}>{item.title}</div>
                             </a>
                         </List.Item>
                     )}
@@ -70,9 +81,26 @@ function Profile() {
                 <a href={'#'}>View all</a>
                 <Divider orientation="left">Locations</Divider>
                 <List
-                    size="large"
+                    grid={{
+                        gutter: 6,
+                        xs: 1,
+                        sm: 1,
+                        md: 1,
+                        lg: 1,
+                        xl: 1,
+                        xxl: 1,
+                    }}
                     dataSource={locations}
-                    renderItem={item => <List.Item>{item}</List.Item>}
+                    renderItem={item => (
+                        <List.Item>
+                            <Card className={"padded bordered location"}
+                                hoverable
+                                style={{ width: 240 }}
+                            >
+                                <Meta title={item.name} description={item.address} />
+                            </Card>
+                        </List.Item>
+                    )}
                 />
             </Col>
         </Row>

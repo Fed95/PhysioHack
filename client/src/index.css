@@ -16,6 +16,13 @@ code {
   padding: 10px;
 }
 
+.bordered {
+  border-style: solid;
+  border-width: thin;
+  border-color: #cfd7dd;
+  border-radius: 3px;
+}
+
 .ant-layout-header {
   color: aliceblue;
   font-size: xxx-large;
