@@ -9,7 +9,9 @@ import {Layout, Row, Col} from 'antd';
 
 import './index.css';
 import "./style/profile.css"
+
 import {SearchBar} from "./components/Search"
+import {Breadcrumbs} from "./components/Breadcrumbs"
 
 const { Header, Footer, Content } = Layout;
 
@@ -26,8 +28,8 @@ ReactDOM.render(
             </Row>
         </Header>
         <Content className={"content"}>
-            <Row className={"contentHeader"}>
-
+            <Row className={"contentHeader center"}>
+                <Breadcrumbs />
             </Row>
             <Row>
                 <Col span={1} />
