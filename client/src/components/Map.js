@@ -1,9 +1,10 @@
-import React from "react"
+import React, {useState, useEffect} from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import { Spin } from 'antd';
 
 import { getCoordinatesFromAddress } from "../utils/Geolocator";
+import {useSelector} from "react-redux";
 
 const MAPS_KEY = process.env.REACT_APP_MAPS_API_KEY;
 
@@ -24,31 +25,28 @@ const MapComponent = compose(
     </GoogleMap>
 );
 
-class Map extends React.Component {
+const Map = () => {
+    const [loaded, setLoaded] = useState(false)
+    const [res, setRes] = useState({})
+    const address = useSelector((state) => state.users)
 
-    constructor() {
-        super();
-        this.state = {
-            loaded: false
+    useEffect(async () => {
+        if( address ){
+            let res = await getCoordinatesFromAddress(address[0].address)
+            setLoaded(true)
+            setRes(res)
         }
-    }
+    });
 
-    async componentDidMount() {
-        let res = await getCoordinatesFromAddress("saint peter's")
-        this.setState({loaded: true, res: res})
-    }
-
-    render() {
-        if (this.state.loaded) {
+        if (loaded) {
             return <MapComponent
-                lat={this.state.res.lat}
-                lng={this.state.res.lng}
+                lat={res.lat}
+                lng={res.lng}
             />
         }
         return <div className={"empty-map center"}>
             <Spin />
         </div>
-    }
 }
 
 export default Map

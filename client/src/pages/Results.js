@@ -1,18 +1,17 @@
 import { useSelector, useDispatch } from 'react-redux'
+import { Redirect, Route, Switch } from "react-router-dom";
 
 function Results() {
-    let users = useSelector((state) => state.users.payload)
+    let users = useSelector((state) => state.users)
+
     if (users != null && users.length > 0){
         return(
             <div>
-                <h2>{users[0].name} {users[0].surname}</h2>
+                <h2>{users[0].address}</h2>
             </div>
         )
     }
-    return
-        <div>
-            <h2>ciaooooo</h2>
-        </div>
+    return(<Redirect to="/" />)
 }
 
 export default Results;
