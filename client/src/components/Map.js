@@ -35,7 +35,6 @@ class Map extends React.Component {
 
     async componentDidMount() {
         let res = await getCoordinatesFromAddress("saint peter's")
-        console.log("AAAAAAAAAAAAAAA", MAPS_KEY)
         this.setState({loaded: true, res: res})
     }
 
