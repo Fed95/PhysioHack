@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux'
+import store from './redux/store';
 import 'antd/dist/antd.css';
 import {Layout, Row, Col} from 'antd';
 
@@ -13,30 +15,30 @@ const { Header, Footer, Content } = Layout;
 
 ReactDOM.render(
   <React.StrictMode>
-      <Layout>
-          <Header>
-              <Row>
-                  <Col span={6}>Header</Col>
-                  <Col span={16} className={"center"}>
-                      <SearchBar />
-                  </Col>
-                  <Col span={2} />
-              </Row>
-          </Header>
-          <Content className={"content"}>
-              <Row className={"contentHeader"}>
+    <Provider store={store}>
+        <Header>
+            <Row>
+                <Col span={6}>Header</Col>
+                <Col span={16} className={"center"}>
+                    <SearchBar />
+                </Col>
+                <Col span={2} />
+            </Row>
+        </Header>
+        <Content className={"content"}>
+            <Row className={"contentHeader"}>
 
-              </Row>
-              <Row>
-                  <Col span={1} />
-                  <Col span={22}>
-                      <App />
-                  </Col>
-                  <Col span={1} />
-              </Row>
-          </Content>
-          <Footer>Footer</Footer>
-      </Layout>
+            </Row>
+            <Row>
+                <Col span={1} />
+                <Col span={22}>
+                    <App />
+                </Col>
+                <Col span={1} />
+            </Row>
+        </Content>
+        <Footer>Footer</Footer>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
