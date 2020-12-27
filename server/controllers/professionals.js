@@ -5,36 +5,6 @@ const Location = require('./../models/location')
 
 
 router.post('/add', async (req, res) => {
-    // #swagger.description = "Add new professional"
-    /*	#swagger.parameters['description'] = {
-         in: 'body',
-         description: 'Professional description',
-         required: true,
-         type: 'string'
-        } 
-        #swagger.parameters['location'] = {
-         in: 'body',
-         description: 'Professional locations',
-         required: false,
-         type: 'array',
-         items: {
-            type: 'object',
-            schema: 'Location'
-         }
-        } 
-        #swagger.parameters['phone'] = {
-         in: 'body',
-         description: 'Professional phone',
-         required: false,
-         type: 'string'
-        } 
-        #swagger.parameters['userId'] = {
-         in: 'body',
-         description: 'Professional user id',
-         required: true,
-         type: 'string'
-        } 
-    */
     let description = req.body.description
     let phone = req.body.phone
     let locations = req.body.locations
@@ -43,16 +13,42 @@ router.post('/add', async (req, res) => {
 
         const locations_result = await Location.insertMany(locations)
 
-        const professional = new Professional({description: description, locations: locations_result, phone: phone, userId: userId});
+        const professional = new Professional({ description: description, locations: locations_result, phone: phone, userId: userId });
 
         const result = await professional.save();
         if (result) {
             return res.status(200).json({ message: "The professional has been added", error: false })
         }
     } catch (e) {
-        return res.status(400).json({message: e.toString(), error: true})
+        return res.status(400).json({ message: e.toString(), error: true })
     }
-
+    /*
+           #swagger.description = "Add new professional"	
+           #swagger.tags = ['Professionals']
+           #swagger.parameters['obj'] = {
+           in:'body',
+           description:'Add new user',
+           schema: {
+               $description:"description",
+               locations:[
+                   {
+                    "name": "Clinica Tu Madre",
+                    "address": "Via le dita dal naso, 25",
+                    "lat": 41.925593,
+                    "lng": 12.479402
+                    },
+                    {
+                        "name": "Consultorio Lo Zozzo",
+                        "address": "Via i laziali da Roma, 42",
+                        "lat": 41.9357261,
+                        "lng": 12.4839667
+                    }
+                ],
+               $phone:"892",
+               userId:''
+           }                     
+       }                            
+       */
 })
 
 router.get('/', async (req, res) => {
@@ -63,14 +59,14 @@ router.get('/', async (req, res) => {
         })
         return res.status(200).json(p)
     } catch (e) {
-        return res.status(400).json({message: e.toString(), error: true})
+        return res.status(400).json({ message: e.toString(), error: true })
     }
-    
+    /*
+    #swagger.tags = ['Professionals']
+    */
 })
 
 router.get('/id/:id', async (req, res) => {
-    //  #swagger.parameters['id'] = { description: "id of a professional" }
-    
     try {
         let professionalId = req.params.id
         if (!professionalId) {
@@ -82,14 +78,28 @@ router.get('/id/:id', async (req, res) => {
         })
         return res.status(200).json(p)
     } catch (e) {
-        return res.status(400).json({message: e.toString(), error: true})
+        return res.status(400).json({ message: e.toString(), error: true })
     }
-    
+    /*  
+        #swagger.parameters['id'] = { required:true, description: "id of a professional" }
+        #swagger.tags = ['Professionals']
+    */
 })
 
 router.get('/distance', async (req, res) => {
 
-    /*  #swagger.parameters['latitude'] = {
+
+
+    try {
+        let lat = req.query.latitude
+        let lng = req.query.longitude
+        return res.status(200).json(await Professional.findDistanceSorted(lat, lng))
+    } catch (e) {
+        return res.status(400).json({ message: e.toString(), error: true })
+    }
+    /*  
+    #swagger.tags = ['Professionals']
+    #swagger.parameters['latitude'] = {
         in: 'body',
         description: 'Latitude',
         required: true,
@@ -101,21 +111,13 @@ router.get('/distance', async (req, res) => {
         required: true,
         type: 'number'
     }  */
-
-    try {
-        let lat = req.query.latitude
-        let lng = req.query.longitude
-        return res.status(200).json(await Professional.findDistanceSorted(lat, lng))
-    } catch (e) {
-        return res.status(400).json({message: e.toString(), error: true})
-    }
 })
 
 
 // TODO: implement deletion of associated locations
 // router.delete('/id/:id', async (req, res) => {
-//     //  #swagger.parameters['id'] = { description: "id of a professional" }
-    
+//     //#swagger.tags = ['Professionals']  #swagger.parameters['id'] = { description: "id of a professional" }
+
 //     try {
 //         let professionalId = req.params.id
 //         if (!professionalId) {
@@ -126,7 +128,7 @@ router.get('/distance', async (req, res) => {
 //     } catch (e) {
 //         return res.status(400).json({message: e.toString(), error: true})
 //     }
-    
+
 // })
 
 module.exports = router

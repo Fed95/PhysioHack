@@ -1,3 +1,4 @@
+###PROFESSIONALS
 POST http://localhost:3001/professionals/add
 Content-Type: application/json
 
@@ -37,4 +38,53 @@ Content-Type: application/json
 
 ###
 DELETE http://localhost:3000/professionals/id/5fe858ef2923e322e8bcc4b9
+Content-Type: application/json
+
+###USERS
+
+POST http://localhost:3001/users/add
+Content-Type: application/json
+
+{
+  "name":"Mario",
+  "surname":"Bianchi",
+  "mail":"mariotooo@gmail.com",
+  "password":"callmemario",
+  "isProfesisonal":false
+}
+
+###
+
+POST http://localhost:3001/users/add
+Content-Type: application/json
+
+{
+  "name":"Mario",
+  "surname":"Bianchi",
+  "mail":"final@gmail.com",
+  "password":"callmemario",
+  "isProfessional":true,
+  "description":"test",
+  "phone":"234",
+  "locations": [
+    {
+      "name": "Clinica Tu Madre",
+      "address": "Via le dita dal naso, 25",
+      "lat": 41.925593,
+      "lng": 12.479402
+    },
+    {
+      "name": "Consultorio Lo Zozzo",
+      "address": "Via i laziali da Roma, 42",
+      "lat": 41.9357261,
+      "lng": 12.4839667
+    }
+  ]
+}
+###
+GET http://localhost:3001/users/
+Content-Type: application/json
+
+###
+GET http://localhost:3001/users/id/5fe895038dae82445c8916a8
 Content-Type: application/json
