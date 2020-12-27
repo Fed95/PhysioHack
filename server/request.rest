@@ -14,6 +14,9 @@ GET http://localhost:3000/professionals/
 Content-Type: application/json
 
 ###
-GET http://localhost:3000/professional/1
-Content-Type: 'application/json; charset=utf-8'
+GET http://localhost:3000/professionals/id/5fe79833e74e876417090525
+Content-Type: application/json
 
+###
+GET http://localhost:3000/professionals/distance?latitude=41.9444069&longitude=12.4754972
+Content-Type: application/json
