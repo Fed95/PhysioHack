@@ -47,12 +47,14 @@ const pathologies = [
 function Profile() {
     return (
         <Row>
-            <Col span={7} className={"padded"}>
-                <div className={"shadowed rounded-border"}>
-                    <Map/>
-                </div>
-            </Col>
+            {/*
+                <Col span={7} className={"padded"}>
+                    <div className={"shadowed rounded-border"}>
+                        <Map/>
+                    </div>
+                </Col>
             <Col span={1}/>
+            */}
             <Col span={14} className={"padded"}>
                 <Row>
                     <Col>

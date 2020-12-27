@@ -30,7 +30,7 @@ export function getAddressFromCoordinates(lat, lgn) {
 export function getCoordinatesFromAddress(address) {
     return Geocode.fromAddress(address).then(
         response => {
-            const { lat, lng } = response.results[0].geometry.location;
+            const {lat, lng} = response.results[0].geometry.location;
             return {lat, lng}
         },
         error => {
