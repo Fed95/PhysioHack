@@ -1,8 +1,36 @@
 import React from "react";
 import {Map} from "../components/Map";
-import {Row, Col} from 'antd';
+import {Row, Col, List, Divider} from 'antd';
+import { LoremIpsum } from "react-lorem-ipsum";
 
 import pp from '../images/theFixer.png'
+
+const locations = [
+    'Racing car sprays burning fuel into crowd.',
+    'Japanese princess to wed commoner.',
+    'Australian walks 100km after outback crash.'
+];
+
+const pathologies = [
+    {
+        title: 'Artrosi',
+    },
+    {
+        title: 'Disfunzioni posturali',
+    },
+    {
+        title: 'Ernia del disco',
+    },
+    {
+        title: 'Linfedema',
+    },
+    {
+        title: 'Dispareunia',
+    },
+    {
+        title: 'Cervicalgia',
+    },
+];
 
 function Profile() {
     return (
@@ -10,10 +38,42 @@ function Profile() {
             <Col span={7} className={"padded"}><Map /></Col>
             <Col span={1} />
             <Col span={14} className={"padded"}>
-                <img src={pp} alt="TheFixer" className={"pp"}/>
-                <h2>The Fixer</h2>
-                <hr />
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <Row>
+                    <Col>
+                        <img src={pp} alt="TheFixer" className={"pp"}/>
+                    </Col>
+                    <Col span={1} />
+                    <Col>
+                        <h2>The Fixer</h2>
+                        <p>Professional Body Explorer</p>
+                    </Col>
+                </Row>
+
+                <Divider orientation="left">About</Divider>
+                <p><LoremIpsum /></p>
+                <Divider orientation="left">Pathologies</Divider>
+                <List
+                    grid={{
+                        gutter: 6,
+                        xs: 1,
+                        sm: 2
+                    }}
+                    dataSource={pathologies}
+                    renderItem={item => (
+                        <List.Item>
+                            <a>
+                            <div className={"pathology padded"}>{item.title}</div>
+                            </a>
+                        </List.Item>
+                    )}
+                />
+                <a href={'#'}>View all</a>
+                <Divider orientation="left">Locations</Divider>
+                <List
+                    size="large"
+                    dataSource={locations}
+                    renderItem={item => <List.Item>{item}</List.Item>}
+                />
             </Col>
         </Row>
     );

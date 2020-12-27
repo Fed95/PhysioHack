@@ -2,3 +2,9 @@
     height: 80px;
     border-radius: 50%;
 }
+
+.pathology {
+    border-style: solid;
+    border-width: thin;
+    border-color: #282c34;
+}
