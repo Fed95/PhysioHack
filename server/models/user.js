@@ -95,7 +95,7 @@ UserSchema.methods.verifyRefreshToken = function (refreshToken) {
 
 UserSchema.pre('save', function (next) {
     let user = this
-    if(!validator.validate(user.email)){
+    if(!validator.validate(user.mail)){
         throw('Wrong mail format')
     }
     if (!user.isModified('password')) {

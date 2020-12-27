@@ -178,7 +178,7 @@
           {
             "name": "obj",
             "in": "body",
-            "description": "Add new user",
+            "description": "Add new user, with option for Professional. If it is not a professional set isProfessional to false and do not send other specific parameter for professional",
             "schema": {
               "type": "object",
               "properties": {
@@ -197,13 +197,50 @@
                 "password": {
                   "type": "string",
                   "example": "iammariobianchi"
+                },
+                "isProfessional": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "description": {
+                  "type": "string",
+                  "example": "test"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "234"
+                },
+                "locations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "example": "Consultorio Lo Zozzo"
+                      },
+                      "address": {
+                        "type": "string",
+                        "example": "Via i laziali da Roma, 42"
+                      },
+                      "lat": {
+                        "type": "number",
+                        "example": 41.9357261
+                      },
+                      "lng": {
+                        "type": "number",
+                        "example": 12.4839667
+                      }
+                    }
+                  }
                 }
               },
               "required": [
                 "name",
                 "surname",
                 "mail",
-                "password"
+                "password",
+                "isProfessional"
               ]
             }
           }
