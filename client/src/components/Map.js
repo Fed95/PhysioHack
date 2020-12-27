@@ -3,7 +3,7 @@ import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import { Spin } from 'antd';
 
-import { getCoordinatesFromAddress } from "./Geolocator";
+import { getCoordinatesFromAddress } from "../utils/Geolocator";
 
 const MapComponent = compose(
     withProps({
