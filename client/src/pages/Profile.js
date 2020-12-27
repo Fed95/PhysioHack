@@ -1,12 +1,12 @@
 import React from "react";
 import Map from "../components/Map";
 import {Row, Col, List, Divider, Card, Space} from 'antd';
-import {PhoneOutlined } from '@ant-design/icons';
-import { LoremIpsum } from "react-lorem-ipsum";
+import {PhoneOutlined} from '@ant-design/icons';
+import {LoremIpsum} from "react-lorem-ipsum";
 
 import pp from '../images/theFixer.png'
 
-const { Meta } = Card;
+const {Meta} = Card;
 
 const locations = [
     {
@@ -49,32 +49,30 @@ function Profile() {
         <Row>
             <Col span={7} className={"padded"}>
                 <div className={"shadowed rounded-border"}>
-                    <Map />
+                    <Map/>
                 </div>
             </Col>
-            <Col span={1} />
+            <Col span={1}/>
             <Col span={14} className={"padded"}>
                 <Row>
                     <Col>
                         <img src={pp} alt="TheFixer" className={"pp"}/>
                     </Col>
-                    <Col span={1} />
+                    <Col span={1}/>
                     <Col>
                         <div className={"profile-header"}>
                             <h2>The Fixer</h2>
                             <p>Professional Body Explorer</p>
-                            <p>
-                                <Space style>
-                                    {React.createElement(PhoneOutlined)}
-                                    {"+39 12345678"}
-                                </Space>
-                            </p>
+                            <Space style>
+                                {React.createElement(PhoneOutlined)}
+                                {"+39 12345678"}
+                            </Space>
                         </div>
                     </Col>
                 </Row>
 
                 <Divider orientation="left">About</Divider>
-                <p><LoremIpsum /></p>
+                <p><LoremIpsum/></p>
                 <Divider orientation="left">Pathologies</Divider>
                 <List
                     grid={{
@@ -86,7 +84,7 @@ function Profile() {
                     renderItem={item => (
                         <List.Item>
                             <a>
-                            <div className={"padded bordered rounded-border"}>{item.title}</div>
+                                <div className={"padded bordered rounded-border"}>{item.title}</div>
                             </a>
                         </List.Item>
                     )}
@@ -106,10 +104,10 @@ function Profile() {
                     renderItem={item => (
                         <List.Item>
                             <Card className={"location padded bordered rounded-border"}
-                                hoverable
-                                style={{ width: 240 }}
+                                  hoverable
+                                  style={{width: 240}}
                             >
-                                <Meta title={item.name} description={item.address} />
+                                <Meta title={item.name} description={item.address}/>
                             </Card>
                         </List.Item>
                     )}
