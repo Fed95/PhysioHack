@@ -1,9 +1,10 @@
-import React from "react"
-import { compose, withProps } from "recompose"
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-import { Spin } from 'antd';
+import React, {useState, useEffect} from "react"
+import {compose, withProps} from "recompose"
+import {withScriptjs, withGoogleMap, GoogleMap, Marker} from "react-google-maps"
+import {Spin} from 'antd';
 
-import { getCoordinatesFromAddress } from "../utils/Geolocator";
+import {getCoordinatesFromAddress} from "../utils/Geolocator";
+import {useSelector} from "react-redux";
 
 const MAPS_KEY = process.env.REACT_APP_MAPS_API_KEY;
 
@@ -16,39 +17,39 @@ const MapComponent = compose(
     }),
     withScriptjs,
     withGoogleMap
-)((props) =>  <GoogleMap
+)((props) => <GoogleMap
         defaultZoom={8}
-        defaultCenter={{ lat: props.lat, lng: props.lng }}
+        defaultCenter={{lat: props.lat, lng: props.lng}}
     >
-        {<Marker position={{ lat: props.lat, lng: props.lng }} />}
+        {<Marker position={{lat: props.lat, lng: props.lng}}/>}
     </GoogleMap>
 );
 
-class Map extends React.Component {
+const Map = () => {
+    const [loaded, setLoaded] = useState(false)
+    const [res, setRes] = useState({})
+    const address = useSelector((state) => state.users)
 
-    constructor() {
-        super();
-        this.state = {
-            loaded: false
+    useEffect(updateMap, [address]);
+
+    async function updateMap() {
+        console.log("updating map. address: ", address)
+        if (address && address.length > 0) {
+            let res = await getCoordinatesFromAddress(address[0].address)
+            setLoaded(true)
+            setRes(res)
         }
     }
 
-    async componentDidMount() {
-        let res = await getCoordinatesFromAddress("saint peter's")
-        this.setState({loaded: true, res: res})
+    if (loaded) {
+        return <MapComponent
+            lat={res.lat}
+            lng={res.lng}
+        />
     }
-
-    render() {
-        if (this.state.loaded) {
-            return <MapComponent
-                lat={this.state.res.lat}
-                lng={this.state.res.lng}
-            />
-        }
-        return <div className={"empty-map center"}>
-            <Spin />
-        </div>
-    }
+    return <div className={"empty-map center"}>
+        <Spin/>
+    </div>
 }
 
 export default Map

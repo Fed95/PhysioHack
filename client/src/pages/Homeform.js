@@ -35,7 +35,6 @@ export const HomeForm = () => {
     const [Operator, setOperator] = useState('')
     const [Place, setPlace] = useState('')
     const [searchRequestStatus, setSearchRequestStatus] = useState('idle')
-    const [searchRequestStatusPlace, setSearchRequestStatusPlace] = useState('idle')
 
     const dispatch = useDispatch()
     const onOperatorChanged = (e) => setOperator(e.target.value)
@@ -43,22 +42,20 @@ export const HomeForm = () => {
 
     const canSave = ([Operator].every(Boolean) && 
                     [Place].every(Boolean) && 
-                    searchRequestStatus === 'idle' &&
-                    searchRequestStatusPlace ==='idle')
+                    searchRequestStatus === 'idle')
 
     const onSearchClicked = async () => {
         if (canSave) {
             try {
                 setSearchRequestStatus('pending');
-                setSearchRequestStatusPlace('pending');
-                dispatch(fetchUsers());
+                dispatch(fetchUsers(Place));
                 setOperator('');
-                history.push("/results");
+                setPlace('');
+                history.push("/profile");
             } catch (err) {
                 console.error('Failed to search: ', err);
             } finally {
                 setSearchRequestStatus('idle');
-                setSearchRequestStatusPlace('pending');
             }
         }
     }
@@ -120,8 +117,7 @@ export const HomeForm = () => {
                 <Button type="primary" style={{ background: "#544E61", 
                 borderColor: "#544E61" }} 
                 onClick={onSearchClicked}
-                icon={<SearchOutlined
-                />}>
+                icon={<SearchOutlined/>}>
                   Cerca!
                 </Button>
             </Form.Item>

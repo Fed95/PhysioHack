@@ -2,13 +2,9 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = []
 
-export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-    return {"payload":
-        [
-            {"name": "Federico", "surname": "Sandrelli"},
-            {"name": "Giovanni", "surname": "Probo"}
-            ]
-        }
+export const fetchUsers = createAsyncThunk('users/fetchUsers', async address => {
+
+    return [{"address": address}]
 })
 
 const usersSlice = createSlice({
