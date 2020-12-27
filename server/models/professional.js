@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const Distance = require('geo-distance');
+
 
 const ProfessionalSchema = new mongoose.Schema({
     description: {
@@ -20,29 +22,32 @@ const ProfessionalSchema = new mongoose.Schema({
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         // required: true,
-        ref: 'User'
+        ref: 'User',
+        unique: true
     }
 })
 
-const professionalModel = {
-    Professional: mongoose.model('Professional', ProfessionalSchema),
-    addProfessional: async (description, lat, lng, phone, userId) => {
-        const professional = await professionalModel.getByIdProfessional(userId);
+ProfessionalSchema.statics.findDistanceSorted = function(srcLat, srcLng) {
 
-        if (professional){
-            throw({code: 422, message: 'The user already associated to a professional.'})
+    const src = {
+        lat: srcLat,
+        lon: srcLng
+    }
+
+    this.find().lean().exec((err, result) => {
+        if (err) {
+            throw(err)
         }
 
-        const newProfessional = new professionalModel.Professional({description: description, lat: lat, lng: lng, phone: phone, userId: userId});
+        let professionals = result.map((el) => {
+            el.distance = parseFloat(Distance.between(src, {lat: el.lat, lon: el.lng}).in_unit('km').toString().replace(' km', ''))
 
-        return newProfessional.save();
-    },
-    getAllProfessional: () => {
-        return professionalModel.Professional.find({});
-    },
-    getByIdProfessional: (id) => {
-        return professionalModel.Professional.findById(id);
-    }
+            return el
+        } )
+
+        professionals.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
+        console.log(professionals)
+    });
 }
 
-module.exports = professionalModel;
+module.exports = mongoose.model('Professional', ProfessionalSchema);

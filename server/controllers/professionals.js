@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const professionalModel = require('./../models/professional')
+const Professional = require('./../models/professional')
 
 
 router.post('/add', async (req, res) => {
@@ -42,27 +42,50 @@ router.post('/add', async (req, res) => {
     let lng = req.body.longitude
     let userId = req.body.userId
     try {
-        let professional = await professionalModel.addProfessional(description, lat, lng, phone, userId)
-        if (professional) {
+        const professional = new Professional({description: description, lat: lat, lng: lng, phone: phone, userId: userId});
+
+        const result = await professional.save();
+        if (result) {
             return res.status(200).json({ message: "The professional has been added", error: false })
         }
     } catch (e) {
-        return res.status(400).json(e)
+        return res.status(400).json({message: e.toString(), error: true})
     }
 
 })
 
 router.get('/', async (req, res) => {
-    return res.status(200).json(await professionalModel.getAllProfessional())
+    try {
+        return res.status(200).json(await Professional.find({}))
+    } catch (e) {
+        return res.status(400).json({message: e.toString(), error: true})
+    }
+    
 })
 
-router.get('/:id', async (req, res) => {
-    //  #swagger.parameters['id'] = { description: "id of a professional" } 
-    let professionalId = req.params.id
-    if (!professionalId) {
-        return res.status(400).json({ error: true, message: 'Missing professional id' })
+router.get('/id/:id', async (req, res) => {
+    //  #swagger.parameters['id'] = { description: "id of a professional" }
+    
+    try {
+        let professionalId = req.params.id
+        if (!professionalId) {
+            return res.status(400).json({ error: true, message: 'Missing professional id' })
+        }
+        return res.status(200).json(await Professional.findById(professionalId))
+    } catch (e) {
+        return res.status(400).json({message: e.toString(), error: true})
     }
-    return res.status(200).json(await professionalModel.getByIdProfessional(professionalId))
+    
+})
+
+router.get('/distance', async (req, res) => {
+    try {
+        let lat = req.query.latitude
+        let lng = req.query.longitude
+        return res.status(200).json(await Professional.findDistanceSorted(lat, lng))
+    } catch (e) {
+        return res.status(400).json({message: e.toString(), error: true})
+    }
 })
 
 module.exports = router
