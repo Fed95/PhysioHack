@@ -32,15 +32,15 @@ export const HomeForm = () => {
         console.log('Failed:', errorInfo);
     };
 
-    const [Operator, setOperator] = useState('')
+    // const [Operator, setOperator] = useState('')
     const [Place, setPlace] = useState('')
     const [searchRequestStatus, setSearchRequestStatus] = useState('idle')
 
     const dispatch = useDispatch()
-    const onOperatorChanged = (e) => setOperator(e.target.value)
+    // const onOperatorChanged = (e) => setOperator(e.target.value)
     const onPlaceChanged = (e) => setPlace(e.target.value)
 
-    const canSave = ([Operator].every(Boolean) && 
+    const canSave = (//[Operator].every(Boolean) &&
                     [Place].every(Boolean) && 
                     searchRequestStatus === 'idle')
 
@@ -49,9 +49,9 @@ export const HomeForm = () => {
             try {
                 setSearchRequestStatus('pending');
                 dispatch(fetchUsers(Place));
-                setOperator('');
+                // setOperator('');
                 setPlace('');
-                history.push("/profile");
+                history.push("/results");
             } catch (err) {
                 console.error('Failed to search: ', err);
             } finally {
@@ -71,7 +71,7 @@ export const HomeForm = () => {
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
         >
-            <Form.Item
+            {/*<Form.Item
                 rules={[
                     {
                         required: true,
@@ -90,7 +90,7 @@ export const HomeForm = () => {
                 size="large"
                 placeholder="Di che operatore sanitario hai bisogno?"
                 value={Operator}/>
-            </Form.Item>
+            </Form.Item>*/}
 
             <Form.Item
                 rules={[

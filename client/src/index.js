@@ -4,60 +4,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux'
 import store from './redux/store';
-import 'antd/dist/antd.css';
-import {Layout, Row, Col, Button} from 'antd';
-import {SearchOutlined} from '@ant-design/icons';
+import 'antd/dist/antd.css'
 
 import "./style/profile.css"
 import './index.css';
-import {SearchBar} from "./components/Search"
-import {Breadcrumbs} from "./components/Breadcrumbs"
-
-const {Header, Footer, Content} = Layout;
 
 ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
-            <Layout>
-                <Header>
-                    <Row style={{textAlign: 'center', alignItems: 'center'}}>
-                        <Col span={6}>PhysioHack!</Col>
-                        <Col span={6} className={"center"}>
-                            <SearchBar
-                                placeholder="Cerca?"
-                            />
-                        </Col>
-                        <Col span={6} className={"center"}>
-                            <SearchBar
-                                placeholder="Cerca?"
-                            />
-                        </Col>
-                        <Col span={5} className={"center"}>
-                            <Button type="primary" style={{
-                                background: "#544E61",
-                                borderColor: "#544E61"
-                            }}
-                                    icon={<SearchOutlined/>}>
-                                Cerca!
-                            </Button>
-                        </Col>
-                        <Col span={2}/>
-                    </Row>
-                </Header>
-                <Content className={"content"}>
-                    <Row className={"contentHeader center"}>
-                        <Breadcrumbs/>
-                    </Row>
-                    <Row>
-                        <Col span={1}/>
-                        <Col span={22}>
-                            <App/>
-                        </Col>
-                        <Col span={1}/>
-                    </Row>
-                </Content>
-                <Footer>Footer</Footer>
-            </Layout>
+            <App/>
         </Provider>
     </React.StrictMode>,
     document.getElementById('root')

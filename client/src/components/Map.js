@@ -33,12 +33,14 @@ const Map = () => {
     useEffect(updateMap, [address]);
 
     async function updateMap() {
-        console.log("updating map. address: ", address)
-        if (address && address.length > 0) {
+        /*if (address && address.length > 0) {
             let res = await getCoordinatesFromAddress(address[0].address)
             setLoaded(true)
             setRes(res)
-        }
+        }*/
+        let res = await getCoordinatesFromAddress("Via Vallisneri, MI")
+        setLoaded(true)
+        setRes(res)
     }
 
     if (loaded) {

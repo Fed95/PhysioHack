@@ -33,7 +33,7 @@ function renderItem(item){
 }
 
 export function ResultsList(props) {
-  const {dataSource} = props
+    const {dataSource} = props
     return (
     <List
           header={<h2>Tutti i Fixers</h2>}
