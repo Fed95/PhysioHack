@@ -2,3 +2,7 @@
     height: 80px;
     border-radius: 50%;
 }
+
+.location {
+    width: 100% !important;
+}
