@@ -6,3 +6,11 @@
 .location {
     width: 100% !important;
 }
+
+.empty-map {
+    height: 400px;
+}
+
+.profile-header * {
+    margin: 0;
+}
