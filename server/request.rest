@@ -1,4 +1,4 @@
-POST http://localhost:3000/professionals/add
+POST http://localhost:3001/professionals/add
 Content-Type: application/json
 
 {
@@ -10,13 +10,13 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:3000/professionals/
+GET http://localhost:3001/professionals/
 Content-Type: application/json
 
 ###
-GET http://localhost:3000/professionals/id/5fe79833e74e876417090525
+GET http://localhost:3001/professionals/id/5fe79833e74e876417090525
 Content-Type: application/json
 
 ###
-GET http://localhost:3000/professionals/distance?latitude=41.9444069&longitude=12.4754972
+GET http://localhost:3001/professionals/distance?latitude=41.9444069&longitude=12.4754972
 Content-Type: application/json
