@@ -1,6 +1,9 @@
 import React from "react"
 import { compose, withProps } from "recompose"
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import { Spin } from 'antd';
+
+import { getCoordinatesFromAddress } from "./Geolocator";
 
 const MapComponent = compose(
     withProps({
@@ -11,18 +14,39 @@ const MapComponent = compose(
     }),
     withScriptjs,
     withGoogleMap
-)((props) =>
-    <GoogleMap
+)((props) =>  <GoogleMap
         defaultZoom={8}
-        defaultCenter={{ lat: props.lat, lng: props.lgn }}
+        defaultCenter={{ lat: props.lat, lng: props.lng }}
     >
-        {<Marker position={{ lat: props.lat, lng: props.lgn }} onClick={props.onMarkerClick} />}
+        {<Marker position={{ lat: props.lat, lng: props.lng }} />}
     </GoogleMap>
 );
 
-export function Map() {
-    return <MapComponent
-                lat={-34.397}
-                lgn={150.644}
+class Map extends React.Component {
+
+    constructor() {
+        super();
+        this.state = {
+            loaded: false
+        }
+    }
+
+    async componentDidMount() {
+        let res = await getCoordinatesFromAddress("saint peter's")
+        this.setState({loaded: true, res: res})
+    }
+
+    render() {
+        if (this.state.loaded) {
+            return <MapComponent
+                lat={this.state.res.lat}
+                lng={this.state.res.lng}
             />
+        }
+        return <div className={"empty-map center"}>
+            <Spin />
+        </div>
+    }
 }
+
+export default Map

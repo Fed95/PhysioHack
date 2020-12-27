@@ -1,6 +1,7 @@
 import React from "react";
-import {Map} from "../components/Map";
-import {Row, Col, List, Divider, Card} from 'antd';
+import Map from "../components/Map";
+import {Row, Col, List, Divider, Card, Space} from 'antd';
+import {PhoneOutlined } from '@ant-design/icons';
 import { LoremIpsum } from "react-lorem-ipsum";
 
 import pp from '../images/theFixer.png'
@@ -17,8 +18,8 @@ const locations = [
         address: 'Via Privata Belgirate, 15, Milano'
     },
     {
-        name: 'Centro UNIQUE',
-        address: 'Via Egidio Gorra, 55/C, Piacenza'
+        name: 'Casa TUA',
+        address: 'Ndo te pare 42'
     }
 ];
 
@@ -46,7 +47,11 @@ const pathologies = [
 function Profile() {
     return (
         <Row>
-            <Col span={7} className={"padded"}><Map /></Col>
+            <Col span={7} className={"padded"}>
+                <div className={"shadowed rounded-border"}>
+                    <Map />
+                </div>
+            </Col>
             <Col span={1} />
             <Col span={14} className={"padded"}>
                 <Row>
@@ -55,8 +60,16 @@ function Profile() {
                     </Col>
                     <Col span={1} />
                     <Col>
-                        <h2>The Fixer</h2>
-                        <p>Professional Body Explorer</p>
+                        <div className={"profile-header"}>
+                            <h2>The Fixer</h2>
+                            <p>Professional Body Explorer</p>
+                            <p>
+                                <Space style>
+                                    {React.createElement(PhoneOutlined)}
+                                    {"+39 12345678"}
+                                </Space>
+                            </p>
+                        </div>
                     </Col>
                 </Row>
 
@@ -73,12 +86,11 @@ function Profile() {
                     renderItem={item => (
                         <List.Item>
                             <a>
-                            <div className={"padded bordered"}>{item.title}</div>
+                            <div className={"padded bordered rounded-border"}>{item.title}</div>
                             </a>
                         </List.Item>
                     )}
                 />
-                <a href={'#'}>View all</a>
                 <Divider orientation="left">Locations</Divider>
                 <List
                     grid={{
@@ -93,7 +105,7 @@ function Profile() {
                     dataSource={locations}
                     renderItem={item => (
                         <List.Item>
-                            <Card className={"padded bordered location"}
+                            <Card className={"location padded bordered rounded-border"}
                                 hoverable
                                 style={{ width: 240 }}
                             >
