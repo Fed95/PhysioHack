@@ -11,9 +11,9 @@ function App() {
       <Router>
           <div>
               <Switch>
-                  <Route path="/results">
+                  /*<Route path="/results">
                       <Results />
-                  </Route>
+                  </Route>*/
                   <Route path="/profile">
                       <Profile />
                   </Route>
