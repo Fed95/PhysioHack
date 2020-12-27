@@ -1,9 +1,10 @@
 import React from 'react';
-import { Form, Input, Button, Tooltip, Checkbox } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { UserOutlined, HomeOutlined, SearchOutlined} from '@ant-design/icons';
-import { Typography, Space } from 'antd';
 import { useHistory } from "react-router-dom";
-const { Text, Link } = Typography;
+import { useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { fetchUsers } from '../redux/formSlice'
 
 const layout = {
     labelCol: {
@@ -23,11 +24,6 @@ const tailLayout = {
 export const HomeForm = () => {
     const history = useHistory();
 
-    const routeChange = () =>{ 
-        let path = '/results'; 
-        history.push(path);
-      }
-
     const onFinish = values => {
         console.log('Success:', values);
     };
@@ -35,6 +31,37 @@ export const HomeForm = () => {
     const onFinishFailed = errorInfo => {
         console.log('Failed:', errorInfo);
     };
+
+    const [Operator, setOperator] = useState('')
+    const [Place, setPlace] = useState('')
+    const [searchRequestStatus, setSearchRequestStatus] = useState('idle')
+    const [searchRequestStatusPlace, setSearchRequestStatusPlace] = useState('idle')
+
+    const dispatch = useDispatch()
+    const onOperatorChanged = (e) => setOperator(e.target.value)
+    const onPlaceChanged = (e) => setPlace(e.target.value)
+
+    const canSave = ([Operator].every(Boolean) && 
+                    [Place].every(Boolean) && 
+                    searchRequestStatus === 'idle' &&
+                    searchRequestStatusPlace ==='idle')
+
+    const onSearchClicked = async () => {
+        if (canSave) {
+            try {
+                setSearchRequestStatus('pending');
+                setSearchRequestStatusPlace('pending');
+                dispatch(fetchUsers());
+                setOperator('');
+                history.push("/results");
+            } catch (err) {
+                console.error('Failed to search: ', err);
+            } finally {
+                setSearchRequestStatus('idle');
+                setSearchRequestStatusPlace('pending');
+            }
+        }
+    }
 
     return (
         <div className="App-form">
@@ -56,11 +83,16 @@ export const HomeForm = () => {
                 ]}
             >
                 <Input 
+                type="text"
+                id="postTitle"
+                name="postTitle"
+                onChange={onOperatorChanged}
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 style={{ color: "#544E61",
                 borderColor: "#544E61"  }}
                 size="large"
-                placeholder="Di che operatore sanitario hai bisogno?"/>
+                placeholder="Di che operatore sanitario hai bisogno?"
+                value={Operator}/>
             </Form.Item>
 
             <Form.Item
@@ -72,17 +104,22 @@ export const HomeForm = () => {
                 ]}
             >
                 <Input
+                type="text"
+                id="postTitle"
+                name="postTitle"
+                onChange={onPlaceChanged}
                 prefix={<HomeOutlined className="site-form-item-icon" />}
                 style={{ color: "#544E61",
                 borderColor: "#544E61" }}
                 size="large"
-                placeholder="Dove ti trovi?"/>
+                placeholder="Dove ti trovi?"
+                value={Place}/>
             </Form.Item>
 
             <Form.Item {...tailLayout}>
                 <Button type="primary" style={{ background: "#544E61", 
                 borderColor: "#544E61" }} 
-                onClick={routeChange}
+                onClick={onSearchClicked}
                 icon={<SearchOutlined
                 />}>
                   Cerca!

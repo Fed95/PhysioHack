@@ -32,24 +32,21 @@
             "type": "string"
           },
           {
+            "name": "location",
+            "in": "body",
+            "description": "Professional locations",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "schema": "Location"
+            }
+          },
+          {
             "name": "phone",
             "in": "body",
             "description": "Professional phone",
             "required": false,
-            "type": "string"
-          },
-          {
-            "name": "latitude",
-            "in": "body",
-            "description": "Professional latitude",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "longitude",
-            "in": "body",
-            "description": "Professional longitude",
-            "required": true,
             "type": "string"
           },
           {
@@ -78,11 +75,14 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
     },
-    "/professionals/{id}": {
+    "/professionals/id/{id}": {
       "get": {
         "tags": [],
         "description": "",
@@ -92,6 +92,56 @@
             "in": "path",
             "required": true,
             "description": "id of a professional"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
+      "delete": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id of a professional"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/professionals/distance": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [
+          {
+            "name": "latitude",
+            "in": "body",
+            "description": "Latitude",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "name": "longitude",
+            "in": "body",
+            "description": "Longitude",
+            "required": true,
+            "type": "number"
           }
         ],
         "responses": {
