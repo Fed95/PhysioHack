@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Distance = require('geo-distance');
+const Location = require('./../models/location')
 
 
 const ProfessionalSchema = new mongoose.Schema({
@@ -7,13 +7,10 @@ const ProfessionalSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    lat: {
-        type: Number,
-        required: true
-    },
-    lng: {
-        type: Number,
-        required: true
+    locations: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: 'Location',
+        required: false
     },
     phone: {
         type: String,
@@ -27,27 +24,22 @@ const ProfessionalSchema = new mongoose.Schema({
     }
 })
 
-ProfessionalSchema.statics.findDistanceSorted = function(srcLat, srcLng) {
+ProfessionalSchema.statics.findDistanceSorted = async function(srcLat, srcLng) {
 
-    const src = {
-        lat: srcLat,
-        lon: srcLng
-    }
+    let result = await this.find()
+                           .populate({
+                                path: 'locations',
+                                model: 'Location'
+                            })
+                           .lean()
 
-    this.find().lean().exec((err, result) => {
-        if (err) {
-            throw(err)
-        }
+    let professionals = result.map((p) => {
+        const distances = p.locations.map((x) => Location(x).computeDistance(srcLat, srcLng))
+        p.distance = Math.min(...distances)
+        return p
+    } )
 
-        let professionals = result.map((el) => {
-            el.distance = parseFloat(Distance.between(src, {lat: el.lat, lon: el.lng}).in_unit('km').toString().replace(' km', ''))
-
-            return el
-        } )
-
-        professionals.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
-        console.log(professionals)
-    });
+    return professionals.sort((a, b) => (a.distance > b.distance) ? 1 : -1)
 }
 
 module.exports = mongoose.model('Professional', ProfessionalSchema);
