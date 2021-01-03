@@ -26,32 +26,14 @@ const MapComponent = compose(
 );
 
 const Map = () => {
-    const [loaded, setLoaded] = useState(false)
-    const [res, setRes] = useState({})
-    const address = useSelector((state) => state.users)
 
-    useEffect(updateMap, [address]);
 
-    async function updateMap() {
-        /*if (address && address.length > 0) {
-            let res = await getCoordinatesFromAddress(address[0].address)
-            setLoaded(true)
-            setRes(res)
-        }*/
-        let res = await getCoordinatesFromAddress("Via Vallisneri, MI")
-        setLoaded(true)
-        setRes(res)
-    }
-
-    if (loaded) {
         return <MapComponent
-            lat={res.lat}
-            lng={res.lng}
+            //lat={res.lat}
+            //lng={res.lng}
+            lat={45.464664}
+            lng={9.188540}
         />
-    }
-    return <div className={"empty-map center"}>
-        <Spin/>
-    </div>
 }
 
 export default Map

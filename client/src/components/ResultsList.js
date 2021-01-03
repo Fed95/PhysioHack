@@ -7,17 +7,10 @@ import {useHistory} from "react-router-dom";
 import pp from '../images/theFixer.png';
 
 function renderItem(item, history) {
-    const {id, name, profession, contacts, description} = item
+    const {_id, last_name, first_name, profession, phone, description} = item
+    let name = last_name + " " + first_name
     return <List.Item
-        onClick={() => {
-            history.push("/profile/" + id)
-        }}
         key={name}
-        actions={[
-            <IconText icon={PhoneOutlined} text={contacts} key="list-vertical-contact-o"/>,
-            <IconText icon={StarOutlined} text="156" key="list-vertical-star-o"/>,
-            <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o"/>
-        ]}
     >
         <List.Item.Meta
             avatar={
@@ -33,6 +26,12 @@ function renderItem(item, history) {
             }
         />
         {description}
+        <br/>
+        <IconText icon={PhoneOutlined} text={phone} key="list-vertical-contact-o"/>
+        <br/>
+        <button onClick={() => {
+            history.push("/profile/" + _id)
+        }}>Vedi il profilo</button>
     </List.Item>
 }
 
@@ -41,7 +40,7 @@ export function ResultsList(props) {
     const {dataSource} = props
     return (
         <List
-            header={<h2>Tutti i Fixers</h2>}
+            header={<h2>Tutti i nostri professionisti</h2>}
             itemLayout="vertical"
             size="medium"
             dataSource={dataSource}

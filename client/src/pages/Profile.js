@@ -1,60 +1,34 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Map from "../components/Map";
 import {Row, Col, List, Divider, Card, Space} from 'antd';
 import {PhoneOutlined} from '@ant-design/icons';
-import {LoremIpsum} from "react-lorem-ipsum";
+import { useParams, Route } from 'react-router-dom';
 
 import pp from '../images/theFixer.png'
 
 const {Meta} = Card;
 
-const locations = [
-    {
-        name: 'ASC - Physiotherapy',
-        address: 'Via Terraggio, 9, Milano'
-    },
-    {
-        name: 'Artemedica (possibilità di parcheggio interno)',
-        address: 'Via Privata Belgirate, 15, Milano'
-    },
-    {
-        name: 'Casa TUA',
-        address: 'Ndo te pare 42'
-    }
-];
-
-const pathologies = [
-    {
-        title: 'Artrosi',
-    },
-    {
-        title: 'Disfunzioni posturali',
-    },
-    {
-        title: 'Ernia del disco',
-    },
-    {
-        title: 'Linfedema',
-    },
-    {
-        title: 'Dispareunia',
-    },
-    {
-        title: 'Cervicalgia',
-    },
-];
-
 function Profile() {
+    let { id } = useParams();
+    let [profile, setProfile] = useState({});
+
+    const fetchProfile = async id => {
+        let response = await fetch('http://localhost:3001/professionals/id/' + id);
+        let json = await response.json();
+        setProfile(json);
+    }
+
+    useEffect( () => {
+        fetchProfile(id)
+    },[id])
+
     return (
         <Row>
-            {/*
-                <Col span={7} className={"padded"}>
-                    <div className={"shadowed rounded-border"}>
-                        <Map/>
-                    </div>
-                </Col>
+            <Col span={7} className={"padded"}>
+                <Map/>
+            </Col>
             <Col span={1}/>
-            */}
+
             <Col span={14} className={"padded"}>
                 <Row>
                     <Col>
@@ -63,18 +37,18 @@ function Profile() {
                     <Col span={1}/>
                     <Col>
                         <div className={"profile-header"}>
-                            <h2>The Fixer</h2>
-                            <p>Professional Body Explorer</p>
+                            <h2>{profile.last_name} {profile.first_name}</h2>
+                            <p>{profile.profession}</p>
                             <Space style>
                                 {React.createElement(PhoneOutlined)}
-                                {"+39 12345678"}
+                                {profile.phone}
                             </Space>
                         </div>
                     </Col>
                 </Row>
 
                 <Divider orientation="left">About</Divider>
-                <p><LoremIpsum/></p>
+                <p>{profile.description}</p>
                 <Divider orientation="left">Pathologies</Divider>
                 <List
                     grid={{
@@ -82,11 +56,11 @@ function Profile() {
                         xs: 1,
                         sm: 2
                     }}
-                    dataSource={pathologies}
+                    dataSource={profile.pathologies}
                     renderItem={item => (
                         <List.Item>
                             <a>
-                                <div className={"padded bordered rounded-border"}>{item.title}</div>
+                                <div className={"padded bordered rounded-border"}>{item}</div>
                             </a>
                         </List.Item>
                     )}
@@ -102,7 +76,7 @@ function Profile() {
                         xl: 1,
                         xxl: 1,
                     }}
-                    dataSource={locations}
+                    dataSource={profile.locations}
                     renderItem={item => (
                         <List.Item>
                             <Card className={"location padded bordered rounded-border"}

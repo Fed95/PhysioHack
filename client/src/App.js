@@ -24,7 +24,7 @@ function App() {
                       <SearchBar
                           placeholder="Cerca?"
                       />
-                  </Col>*/}
+                  </Col>
                     <Col span={12} className={"center"}>
                         <SearchBar
                             placeholder="Cerca?"
@@ -39,7 +39,7 @@ function App() {
                             Cerca!
                         </Button>
                     </Col>
-                    <Col span={2}/>
+                    <Col span={2}/>*/}
                 </Row>
             </Header>
             <Content className={"content"}>
@@ -56,7 +56,7 @@ function App() {
                                     <Route path="/results">
                                         <Results/>
                                     </Route>
-                                    <Route path="/profile">
+                                    <Route path="/profile/:id">
                                         <Profile/>
                                     </Route>
                                     <Route path="/">
