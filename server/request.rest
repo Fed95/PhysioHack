@@ -2,6 +2,8 @@ POST http://localhost:3001/professionals/add
 Content-Type: application/json
 
 {
+  "first_name": "Mario",
+  "last_name": "Rossi",
   "description":"test",
   "phone":"234",
   "locations": [
@@ -18,9 +20,8 @@ Content-Type: application/json
       "lng": 12.4839667
     }
   ],
-  "latitude":"34243",
-  "longitude":"23443",
-  "userId":null
+  "profession": "Physiotherapist",
+  "pathologies": ["Leg", "Neck", "Left finger"]
 }
 
 ###
@@ -36,5 +37,5 @@ GET http://localhost:3001/professionals/distance?latitude=41.9444069&longitude=1
 Content-Type: application/json
 
 ###
-DELETE http://localhost:3000/professionals/id/5fe858ef2923e322e8bcc4b9
+DELETE http://localhost:3001/professionals/id/5fe872ed914d5b4e86639136
 Content-Type: application/json

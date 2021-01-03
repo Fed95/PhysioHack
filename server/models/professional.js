@@ -3,6 +3,14 @@ const Location = require('./../models/location')
 
 
 const ProfessionalSchema = new mongoose.Schema({
+    first_name: {
+        type: String,
+        required: true
+    },
+    last_name: {
+        type: String,
+        required: true
+    },
     description: {
         type: String,
         required: true
@@ -16,12 +24,26 @@ const ProfessionalSchema = new mongoose.Schema({
         type: String,
         required: false
     },
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        // required: true,
-        ref: 'User',
-        unique: true
+    profession: {
+        type: String,
+        required: true
+    },
+    pathologies: {
+        type: [String],
+        required: false
     }
+    // userId: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     required: true,
+    //     ref: 'User',
+    //     unique: true
+    // }
+})
+
+ProfessionalSchema.post('remove', function (next) {
+    const professional = this
+    professional.locations.forEach((x) => Location.findByIdAndDelete(x))
+    next()
 })
 
 ProfessionalSchema.statics.findDistanceSorted = async function(srcLat, srcLng) {
