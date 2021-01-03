@@ -25,6 +25,20 @@
         "description": "Add new professional",
         "parameters": [
           {
+            "name": "first_name",
+            "in": "body",
+            "description": "Professional first name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "last_name",
+            "in": "body",
+            "description": "Professional last name",
+            "required": true,
+            "type": "string"
+          },
+          {
             "name": "description",
             "in": "body",
             "description": "Professional description",
@@ -32,7 +46,14 @@
             "type": "string"
           },
           {
-            "name": "location",
+            "name": "phone",
+            "in": "body",
+            "description": "Professional phone",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "locations",
             "in": "body",
             "description": "Professional locations",
             "required": false,
@@ -43,18 +64,18 @@
             }
           },
           {
-            "name": "phone",
+            "name": "profession",
             "in": "body",
-            "description": "Professional phone",
-            "required": false,
+            "description": "Professional profession",
+            "required": true,
             "type": "string"
           },
           {
-            "name": "userId",
+            "name": "pathologies",
             "in": "body",
-            "description": "Professional user id",
-            "required": true,
-            "type": "string"
+            "description": "Professional pathologies",
+            "required": false,
+            "type": "array"
           }
         ],
         "responses": {
