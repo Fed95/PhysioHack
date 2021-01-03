@@ -6,7 +6,19 @@ const Location = require('./../models/location')
 
 router.post('/add', async (req, res) => {
     // #swagger.description = "Add new professional"
-    /*	#swagger.parameters['description'] = {
+    /*	#swagger.parameters['first_name'] = {
+         in: 'body',
+         description: 'Professional first name',
+         required: true,
+         type: 'string'
+        }
+        #swagger.parameters['last_name'] = {
+         in: 'body',
+         description: 'Professional last name',
+         required: true,
+         type: 'string'
+        }
+        #swagger.parameters['description'] = {
          in: 'body',
          description: 'Professional description',
          required: true,
@@ -34,17 +46,11 @@ router.post('/add', async (req, res) => {
          required: true,
          type: 'string'
         }
-        #swagger.parameters['pathlogies'] = {
+        #swagger.parameters['pathologies'] = {
          in: 'body',
          description: 'Professional pathologies',
          required: false,
          type: 'array'
-        } 
-        #swagger.parameters['userId'] = {
-         in: 'body',
-         description: 'Professional user id',
-         required: true,
-         type: 'string'
         } 
     */
     let first_name = req.body.first_name
