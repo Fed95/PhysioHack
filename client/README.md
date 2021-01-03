@@ -1,70 +1,59 @@
-# Getting Started with Create React App
+# PhisioHack Website
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The website is structured over three pages:
 
-## Available Scripts
+- Main landing search page
+- List results page
+- Professional profile page
 
-In the project directory, you can run:
+# Code structure
+
+## Frontend
+
+This client was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+The client can be started by running
+
+`npm install` (only necessary the first time)
 
 ### `npm start`
 
-Runs the app in the development mode.\
+from within the `/client` folder. This will run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+NOTE: Inside the `/src` folder, you should create a `.env` file, containing the key for the Google API authentication (
+used for the Map component). Should be something like:
 
-### `npm test`
+`REACT_APP_MAPS_API_KEY=MyGoogleApiKey123`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The website is built as a single page react app. This means that when navigating through the pages, the content switch
+and the address update are handled by the page scripts. 
 
-### `npm run build`
+The project is structured in the following way:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- App.js: contains the general page structure and logic to switch between pages based on the web address
+- pages folder: contains the various scripts that perform the queries and display the content related to a single page
+- components folder: contains reusable components suc as the Map component
+- style folder: styling sheets
+- utils folder: contains geolocator script used for translation of street addresses to geographical coordinates and
+  vice-versa
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Backend
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The server can be started by running
 
-### `npm run eject`
+`npm install` (only necessary the first time)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### `npm start`
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+from within the `/server` folder. You can then find a list of available calls by visiting
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+`http://localhost:3001/api-docs/`
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+in `server/utils/requests.rest`, you can find a list of example requests.
 
-## Learn More
+NOTE: Inside the config folder, you should create a `.env` file, containing the key for the MongoDB atlas
+authentication. Something like:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+`MONGODB=mongodb+srv://root:<password>@<clustername>.yaspg.mongodb.net/<database>?retryWrites=true&w=majority`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
