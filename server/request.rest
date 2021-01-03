@@ -29,7 +29,7 @@ GET http://localhost:3001/professionals/
 Content-Type: application/json
 
 ###
-GET http://localhost:3001/professionals/id/5fe79833e74e876417090525
+GET http://localhost:3001/professionals/id/5ff23478daec3625ce433b56
 Content-Type: application/json
 
 ###

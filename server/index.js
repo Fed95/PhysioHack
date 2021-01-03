@@ -6,8 +6,10 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger_output.json');
 //need in variable for autoswagger
 const router = require('./controllers/index')
+const cors = require('cors');
 
 app.use(express.json())
+app.use(cors())
 
 db.init()
 app.use(router)
